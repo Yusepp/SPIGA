@@ -38,8 +38,8 @@ class SPIGAFramework:
             #model_state_dict = torch.hub.load_state_dict_from_url(self.model_cfg.model_weights_url,
             #                                                      model_dir=weights_path,
             #                                                      file_name=self.model_cfg.model_weights)
-            gdown.download(id="1h0qA5ysKorpeDNRXe9oYkVcVe8UYyzP7", output=weights_path, quiet=False)
             weights_file = os.path.join(weights_path, self.model_cfg.model_weights)
+            gdown.download(id="1h0qA5ysKorpeDNRXe9oYkVcVe8UYyzP7", output=weights_file, quiet=False)
             model_state_dict = torch.load(weights_file)
         else:
             weights_file = os.path.join(weights_path, self.model_cfg.model_weights)
