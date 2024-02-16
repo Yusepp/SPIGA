@@ -3,6 +3,7 @@ import pkg_resources
 import copy
 import torch
 import numpy as np
+import gdown
 
 # Paths
 weights_path_dft = pkg_resources.resource_filename('spiga', 'models/weights')
@@ -34,9 +35,12 @@ class SPIGAFramework:
             weights_path = weights_path_dft
 
         if self.model_cfg.load_model_url:
-            model_state_dict = torch.hub.load_state_dict_from_url(self.model_cfg.model_weights_url,
-                                                                  model_dir=weights_path,
-                                                                  file_name=self.model_cfg.model_weights)
+            #model_state_dict = torch.hub.load_state_dict_from_url(self.model_cfg.model_weights_url,
+            #                                                      model_dir=weights_path,
+            #                                                      file_name=self.model_cfg.model_weights)
+            gdown.download(id="1h0qA5ysKorpeDNRXe9oYkVcVe8UYyzP7", output=weights_path, quiet=False)
+            weights_file = os.path.join(weights_path, self.model_cfg.model_weights)
+            model_state_dict = torch.load(weights_file)
         else:
             weights_file = os.path.join(weights_path, self.model_cfg.model_weights)
             model_state_dict = torch.load(weights_file)
